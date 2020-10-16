@@ -1,24 +1,22 @@
 <template>
-  <div class="flex flex-row items-center text-shadow" v-if="isActive">
-    <div class="mr-4">
-      <img :src="artwork" class="w-16 rounded-lg shadow-lg" />
-    </div>
-    <!-- Artwork -->
-    <div>
-      <div class="font-semibold text-white">{{ title }}</div>
-      <!-- title -->
-      <div class="text-gray-100">{{ artist }}</div>
-      <!-- artist -->
-    </div>
-    <!-- Artist & Titles -->
+  <div v-if="isActive">
+    <NowPlayingTicker v-if="theme === 'ticker'" :artist="artist" :title="title" :artwork="artwork"/>
+    <NowPlayingStacked v-else :artist="artist" :title="title" :artwork="artwork"/>
   </div>
   <div v-if="!username" class="text-red-500">Missing username from url example: <code>now-playing.app?user=halfcube</code></div>
 </template>
 <script>
+  import NowPlayingStacked from './NowPlayingStacked.vue'
+  import NowPlayingTicker from './NowPlayingTicker.vue'
   export default {
+    components: {
+      NowPlayingStacked,
+      NowPlayingTicker
+    },
     data() {
       return {
         counter: 0,
+        theme: "stacked",
         isActive: true,
         username: null,
         title: "",
@@ -28,14 +26,14 @@
     },
     beforeMount() {
       window.location.search
-      this.getUsername()
+      this.getParams()
       this.startPolling()
     },
     methods: {
-      getUsername() {
+      getParams() {
         let params = new URLSearchParams(window.location.search)
         this.username = params.get('user')
-        return this.username
+        this.theme = params.get('theme')
       },
       startPolling() {
         this.fetch();
