@@ -1,0 +1,16 @@
+{
+  "name": "now-playing",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite serve --mode development",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "tailwindcss": "^1.9.2",
+    "vue": "^3.0.0-rc.1"
+  },
+  "devDependencies": {
+    "vite": "^1.0.0-rc.1",
+    "@vue/compiler-sfc": "^3.0.0-rc.1"
+  }
+}
