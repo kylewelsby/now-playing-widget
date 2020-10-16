@@ -12,6 +12,7 @@
     </div>
     <!-- Artist & Titles -->
   </div>
+  <div v-if="!username" class="text-red-500">Missing username from url example: <code>now-playing.app?user=halfcube</code></div>
 </template>
 <script>
   export default {
@@ -19,16 +20,23 @@
       return {
         counter: 0,
         isActive: true,
-        username: "halfcube",
+        username: null,
         title: "",
         artist: "",
         artwork: ""
       };
     },
     beforeMount() {
+      window.location.search
+      this.getUsername()
       this.startPolling()
     },
     methods: {
+      getUsername() {
+        let params = new URLSearchParams(window.location.search)
+        this.username = params.get('user')
+        return this.username
+      },
       startPolling() {
         this.fetch();
         window.setTimeout(() => {
@@ -38,6 +46,9 @@
         }, 2500);
       },
       async fetch() {
+        if(!this.username) {
+          return
+        }
         let apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
         let res = await fetch(
           `//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${this.username}&api_key=${apiKey}&format=json`
