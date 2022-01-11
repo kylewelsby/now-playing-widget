@@ -34,6 +34,7 @@
         let params = new URLSearchParams(window.location.search)
         this.username = params.get('user')
         this.theme = params.get('theme')
+        this.apiKey = params.get('apiKey')
       },
       startPolling() {
         this.fetch();
@@ -47,9 +48,8 @@
         if(!this.username) {
           return
         }
-        let apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
         let res = await fetch(
-          `//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${this.username}&api_key=${apiKey}&format=json`
+          `//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${this.username}&api_key=${this.apiKey}&format=json`
         );
         let data = await res.json();
         if (data.error) {
