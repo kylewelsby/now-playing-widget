@@ -49,7 +49,7 @@
           return
         }
         let res = await fetch(
-          `//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${this.username}&api_key=${this.apiKey}&format=json`
+          `//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${this.username}&api_key=${this.apiKey}&format=json&limit=1`
         );
         let data = await res.json();
         if (data.error) {
