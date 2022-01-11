@@ -10,14 +10,15 @@ Can work with Spotify when connected with your Last.fm account.
 
 ## 🛠 Configurations
 
-| URL param | description |
-|---|---|
-| `user` | lastfm username |
-| `theme` | theme mode |
+| URL param | description     |
+|----------|-----------------|
+| `user`   | lastfm username |
+| `theme`  | theme mode      |
+| `apiKey` | lastfm api key  |
 
 ## example
 
-    https://now-playing-2e8d3.web.app?user=halfcube&theme=ticker
+    https://now-playing-2e8d3.web.app?user=halfcube&theme=ticker&apiKey=xxx
 
 ## ⚡️ System Dependencies
 This project requires Node.js to build and run.
